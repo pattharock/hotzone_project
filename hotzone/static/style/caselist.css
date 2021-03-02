@@ -1,0 +1,28 @@
+.case_list ul li{
+  display: inline-block;
+}
+
+.case_list ul {
+  background: #464f5e;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid #1e1e1f;
+  padding-bottom: 2rem;
+}
+
+.case_list .container ul {
+  padding: 0.2rem;
+}
+
+.case_list h3 {
+  display: inline;
+}
+
+.toggler {
+  float: right;
+}
+
+.case_list .multicollapse.collapse{
+  margin-top: 0;
+}

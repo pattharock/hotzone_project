@@ -1,0 +1,11 @@
+.navbar a {
+    color: white;
+}
+
+.case-card {
+    max-width: 900px;
+}
+
+.container {
+    flex-direction: row;
+}

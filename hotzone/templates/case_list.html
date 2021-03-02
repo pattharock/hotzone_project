@@ -1,0 +1,72 @@
+{% extends 'common/base.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'style/caselist.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="pt-5 mt-5 case_list">
+    <div class="container">
+        <h4 class="py-3 text-center">List of confirmed cases</h4>
+        <br>
+            {% for case in case_list %}
+                <ul class="container align-center pt-1">
+                  <li class="text-light text-center h5 pl-3 pt-3 pb-2"> Case No.  {{ case.case_number }}</li>
+                  <li class="toggler text-light pt-2 pr-3"><a class="btn btn-light"
+                     data-toggle="collapse"
+                     href="#id{{ case.case_id }}"
+                     role="button" aria-expanded="false"
+                     aria-controls="id{{ case.case_id }}"> View Case</a></li>
+                </ul>
+                <div class="row">
+                  <div class="col">
+                    <div class="collapse multi-collapse" id="id{{ case.case_id }}">
+                      <div class="card mb-3 card-body">
+                        <form>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="patient_id">Patient name: </label>
+                              <input class="form-control" type="text" name="patient_id" value="{{case.patient_id}}" disabled>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="virus_id">Virus name: </label>
+                              <input class="form-control" type="text" name="virus_id" value="{{case.virus_id}}" disabled>
+                            </div>
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="confirmed_date">Confirmed date: </label>
+                              <input class="form-control" type="text" name="confirmed_date" value="{{case.date}}" disabled>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="category">Category: </label>
+                              <input class="form-control" type="text" name="category" value="{{case.category}}" disabled>
+                            </div>
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="visited_locations">Visited location(s): </label>
+                              {% for loc in case.location.all %}
+                              <input class="form-control" type="text" name="visited_locations" value="{{loc}}" disabled>
+                              <div class="pb-1"></div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% empty %}
+            <li>No confirmed cases yet.</li>
+            {% endfor %}
+            <div class="py-4"></div>
+    </div>
+
+</div>
+
+{% endblock %}

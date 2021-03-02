@@ -1,0 +1,147 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+<div class="pt-5">
+    <!-- Add case form -->
+    <div class="container">
+        <br>
+
+        <h4 class="py-3 text-center">Create GeoData coordinates</h4>
+        {% if geodata_message %}
+        <div class="pb-2" style="text-align: center; font-size: 0.9em;">
+            <span style="color: red;">{{ geodata_message }}</span>
+        </div>
+        {% endif %}
+
+        <div class="case-card card mx-auto">
+            <div class="card-body">
+
+                <!-- Location name & coordinates -->
+                <form name="geodataForm" method='POST' action="{% url 'application:get_geodata' %}">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="location" class="col-sm-3 col-form-label">Location name</label>
+                        <div class="col-sm-9">
+                            <input name="location" type="text" class="form-control" id="caseLocation"
+                                {% if location %}value="{{ location }}" {% endif %}
+                                onblur="document.caseForm.location.value = this.value;">
+                        </div>
+                    </div>
+
+                    {% if geodata_list %}
+                    <div class="pb-2" style="text-align: center; font-size: 0.9em;">
+                        <span style="color: red;">More than one match. Please select one.</span>
+                    </div>
+                    {% endif %}
+
+                    <!-- call geodata API -->
+                    <div class="row">
+                        <button class="btn btn-outline-success ml-2 mb-3" type='submit'>Get coordinates</button>
+                        {% if geodata_list %}
+                        <select name="selected_location" class="ml-2 custom-select mb-3">
+                            <option selected>Select one in list</option>
+                            {% for g in geodata_list %}
+                            <option value="{{ forloop.counter }}">{{ g.nameZH }}, {{ g.nameEN }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                        <button class="btn btn-success ml-2 mb-3" type='submit'>Confirm</button>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="geo_x" class="col-sm-3 col-form-label">X coordinate</label>
+                        <div class="col-sm-5">
+                            <input name="geo_x" onblur="document.caseForm.geo_x.value = this.value;"
+                                class="form-control" type="text" {% if x %}value="{{ x }}"
+                                {% else %}value="Search for location" {% endif %} readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="geo_y" class="col-sm-3 col-form-label">Y coordinate</label>
+                        <div class="col-sm-5">
+                            <input name="geo_y" onblur="document.caseForm.geo_y.value = this.value;"
+                                class="form-control" type="text" {% if y %}value="{{ y }}"
+                                {% else %}value="Search for location" {% endif %} readonly>
+                        </div>
+                    </div>
+                </form>
+
+                <form name="coordForm" method='POST' action="{% url 'application:create_coord' %}">
+                    {% csrf_token %}
+                    <input style="visibility: hidden;" type="text" name="geo_x" {% if x %}value="{{ x }}" {% endif %} />
+                    <input style="visibility: hidden;" type="text" name="geo_y" {% if y %}value="{{ y }}" {% endif %} />
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-sm-10 text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        {% if coord_message %}
+                        <div class="pt-3 pb-2" style="text-align: center; font-size: 0.9em;">
+                            <span>{{ coord_message }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </form>
+
+                <!-- <form name="caseForm" method='POST' action="{% url 'application:create_case' %}">
+                    {% csrf_token %}
+
+                    <input type="text" name="location" {% if x %}value="{{ location }}" {% endif %} />
+                    <input type="text" name="geo_x" {% if x %}value="{{ x }}" {% endif %} />
+                    <input type="text" name="geo_y" {% if y %}value="{{ y }}" {% endif %} />
+
+                    <div class="form-group row">
+                        <label for="caseAddress" class="col-sm-3 col-form-label">Address</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="address" class="form-control" id="caseAddress">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="caseCategory" class="col-sm-3 col-form-label">Category</label>
+                        <div class="col-sm-9">
+                            <select name="category" class="custom-select" id="caseCategory" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option>Residence</option>
+                                <option>Workplace</option>
+                                <option>Visit</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="caseDateFrom" class="col-sm-3 col-form-label">Date from (YYYY-MM-DD)</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="date_from" class="form-control" id="caseDateFrom">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="caseDateTo" class="col-sm-3 col-form-label">Date to (YYYY-MM-DD)</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="date_to" class="form-control" id="caseDateTo">
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-sm-10 text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form> -->
+
+            </div>
+        </div>
+
+        <br>
+
+        <!-- <h4 class="py-3">View case record</h4>
+        <form method='GET' action="{% url 'application:case_list' %}">
+            <button class="btn btn-primary" type='submit'>Refresh</button>
+        </form> -->
+
+    </div>
+
+</div>
+
+{% endblock %}

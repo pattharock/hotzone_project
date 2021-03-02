@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta Charset="UTF-8">
+  <meta name="UI" content="UI Design">
+  <title>Dashboard page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--===============================================================================================-->
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+  <!--===============================================================================================-->
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <!--===============================================================================================-->
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <!--===============================================================================================-->
+  {% load static %}
+  {% block styles %}
+  {% endblock %}
+  <link rel="stylesheet" type="text/css" href="{% static 'style/dashboard.css' %}">
+
+</head>
+
+<body>
+
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand pl-3" href="#">HotZone</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+      aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/get_geodata"><i class='fas fa-home pr-2'></i>Add GeoData</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/create_location"><i class='fas fa-home pr-2'></i>Add Location</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/create_case"><i class='fas fa-home pr-2'></i>Add Case</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/create_patient"><i class="fas fa-plus pr-2"></i>Add Patients</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/create_virus"><i class="fas fa-virus pr-2"></i>Add Virus</a>
+        </li>
+        <li class="nav-item disabled px-2">
+          <a class="nav-link" href="/case_list"><i class='fas fa-database pr-2'></i>View cases</a>
+        </li>
+        <li class="nav-item disabled px-2">
+          <a class="nav-link" href="/cluster"><i class="fas fa-viruses pr-2"></i>Cluster</a>
+        </li>
+        <li class="nav-item disabled px-2">
+          <a class="nav-link" href="#"><i class='fas fa-user pr-2'></i>Profile</a>
+        </li>
+      </ul>
+      <!-- <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> -->
+
+      <a class="nav-link" href="#signout" data-toggle="modal" data-target="#logoutModal">
+        <i class='fas fa-sign-out-alt pr-2'>
+        </i>Sign out
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Log out confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="text-center py-3">Are you sure you want to log out?</div>
+        </div>
+        
+        <div class="modal-footer">
+          <form action="{% url 'application:logout' %}"" method=" GET">
+            {% csrf_token %}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <!-- <button type="submit" onclick="document.getElementById('logoutModal').style.display='none'"
+            class="btn btn-primary">Confirm</button> -->
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {% block content %}
+  Content of page
+  {% endblock %}
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <!--===============================================================================================-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

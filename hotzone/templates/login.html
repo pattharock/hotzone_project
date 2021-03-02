@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/style/main.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="container-login" style="background-image: url('static/background.jpg');">
+        <div class="wrap-login p-5">
+            <h3 class="pb-4">HotZone</h3>
+            <form class="login-form" method="POST" action="{% url 'application:login_auth' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="EmailInput">Username</label>
+                    <input type="text" name="username" class="form-control" id="EmailInput">
+                </div>
+                <div class="form-group">
+                    <label for="PasswordInput">Password</label>
+                    <input type="password" name="password" class="form-control" id="PasswordInput">
+                </div>
+
+                {% if messages %}
+                <div style="text-align: center">
+                    {% for message in messages %}
+                    <span style="color: red;" {% if message.tags %} class="{{ message.tags }}"
+                        {% endif %}>{{ message }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <br>
+
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <br>
+
+            <a href="/register">Register</a>
+            <br>
+            <a href="/reset_password">Reset Password</a>
+        </div>
+    </div>
+
+
+    <script src="" async defer></script>
+</body>
+
+</html>
