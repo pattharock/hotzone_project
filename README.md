@@ -1,6 +1,6 @@
 # Hotzone
 
-A Django Web Application using DBScan algorihtm to perform clustering of COVID-19 cases in Honng Kong 
+A Django Web Application using DBScan algorithm to perform clustering of COVID-19 cases in Hong Kong 
 
 ### Deployed at
 
