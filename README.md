@@ -1,8 +1,10 @@
 # Hotzone
 
-### Jira link
+A Django Web Application using DBScan algorihtm to perform clustering of COVID-19 cases in Honng Kong 
 
-https://hotzone.atlassian.net/
+### Deployed at
+
+https://hotzoneteamg.herokuapp.com
 
 ### Requirements
 
